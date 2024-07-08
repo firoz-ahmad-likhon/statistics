@@ -3,7 +3,7 @@ from scipy import stats as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-speed = [99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86]
+speed = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
 
 print("-----Start Central Tendency-----")
 mean = np.mean(speed)
@@ -43,7 +43,7 @@ print("-----End Spread Analysis-----\n\n")
 
 print("-----Start Data Modeling-----")
 zscore = st.zscore(speed)
-loc = speed.index(86)
+loc = np.where(speed == 86)[0][0]
 percentile_86 = st.percentileofscore(speed, 86)
 ordinal_rank_86 = st.rankdata(speed, method='ordinal')[loc]
 dense_rank_86 = st.rankdata(speed, method='dense')[loc]
@@ -54,6 +54,38 @@ print('dense ranking of 86', dense_rank_86)
 
 print('z-score of 86', zscore_86)
 print("-----End Data Modeling-----\n\n")
+
+print("-----Start Shape-----")
+def shape_interpretation(skewness, kurtosis):
+    # Interpret skewness
+    if skewness == 0:
+        skew_desc = "Symmetric distribution"
+    elif 0 < skewness < 1:
+        skew_desc = "Moderately right-skewed"
+    elif skewness >= 1:
+        skew_desc = "Highly right-skewed"
+    elif -1 < skewness < 0:
+        skew_desc = "Moderately left-skewed"
+    else:
+        skew_desc = "Highly left-skewed"
+
+    # Interpret kurtosis
+    if kurtosis == 3:
+        kurt_desc = "Mesokurtic (normal distribution)"
+    elif kurtosis > 3:
+        kurt_desc = "Leptokurtic (heavy tails)"
+    else:
+        kurt_desc = "Platykurtic (light tails)"
+
+    return skew_desc, kurt_desc
+
+skewness = st.skew(speed)
+kurt = st.kurtosis(speed)
+
+skew_desc, kurt_desc = shape_interpretation(skewness, kurt)
+print(f"Skewness: {skewness:.2f}, {skew_desc}")
+print(f"Kurtosis: {kurt:.2f}", kurt_desc)
+print("-----End Shape-----\n\n")
 
 print("-----Start Outlier Detection-----")
 # Function to remove outliers using IQR

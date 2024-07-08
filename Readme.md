@@ -12,8 +12,17 @@
 - Mean Absolute Deviation
 - Median Absolute Deviation
 
-##### Modeling
+##### Modeling Data Distribution
 - Percentile
 - Rank
 - Z-Score
 
+##### Measure of Shape
+- Skewness
+- Kurtosis
+- Normality
+
+##### Measure of Association
+- Correlation   
+- Covariance
+- Regression

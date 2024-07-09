@@ -56,6 +56,8 @@ print('z-score of 86', zscore_86)
 print("-----End Data Modeling-----\n\n")
 
 print("-----Start Shape-----")
+
+
 def shape_interpretation(skewness, kurtosis):
     # Interpret skewness
     if skewness == 0:
@@ -66,7 +68,7 @@ def shape_interpretation(skewness, kurtosis):
         skew_desc = "Highly right-skewed"
     elif -1 < skewness < 0:
         skew_desc = "Moderately left-skewed"
-    else:
+    else:  # skewness <= -1
         skew_desc = "Highly left-skewed"
 
     # Interpret kurtosis
@@ -74,10 +76,11 @@ def shape_interpretation(skewness, kurtosis):
         kurt_desc = "Mesokurtic (normal distribution)"
     elif kurtosis > 3:
         kurt_desc = "Leptokurtic (heavy tails)"
-    else:
+    else:  # kurtosis < 3
         kurt_desc = "Platykurtic (light tails)"
 
     return skew_desc, kurt_desc
+
 
 skewness = st.skew(speed)
 kurt = st.kurtosis(speed)
@@ -88,6 +91,8 @@ print(f"Kurtosis: {kurt:.2f}", kurt_desc)
 print("-----End Shape-----\n\n")
 
 print("-----Start Outlier Detection-----")
+
+
 # Function to remove outliers using IQR
 def remove_outliers_iqr(data):
     q25, q75 = np.percentile(data, [25, 75])
@@ -96,10 +101,12 @@ def remove_outliers_iqr(data):
     upper_bound = q75 + 1.5 * iqr
     return [val for val in data if lower_bound <= val <= upper_bound]
 
+
 # Function to remove outliers using Z-score
 def remove_outliers_zscore(data, threshold=3):
     z_scores = np.abs(st.zscore(data))
     return [val for key, val in enumerate(data) if z_scores[key] <= threshold]
+
 
 # Function to remove outliers using modified Z-score
 def remove_outliers_modified_zscore(data, threshold=3.5):
@@ -107,6 +114,7 @@ def remove_outliers_modified_zscore(data, threshold=3.5):
     mad = np.median(np.abs(data - median))
     modified_z_scores = 0.6745 * (data - median) / mad
     return [val for key, val in enumerate(data) if np.abs(modified_z_scores[key]) <= threshold]
+
 
 speed_iqr = remove_outliers_iqr(speed)
 speed_zscore = remove_outliers_zscore(speed)
@@ -179,10 +187,10 @@ axs[2, 0].plot(x, pdf, linewidth=2, color='red', label='Normal Distribution')
 axs[2, 0].axvline(mean, color='k', linestyle='--', linewidth=1, label='Mean')
 axs[2, 0].axvline(mean + std, color='blue', linestyle='--', linewidth=1, label='Mean + Std')
 axs[2, 0].axvline(mean - std, color='blue', linestyle='--', linewidth=1, label='Mean - Std')
-axs[2, 0].axvline(mean + 2*std, color='green', linestyle='--', linewidth=1, label='Mean + 2*Std')
-axs[2, 0].axvline(mean - 2*std, color='green', linestyle='--', linewidth=1, label='Mean - 2*Std')
-axs[2, 0].axvline(mean + 3*std, color='purple', linestyle='--', linewidth=1, label='Mean + 3*Std')
-axs[2, 0].axvline(mean - 3*std, color='purple', linestyle='--', linewidth=1, label='Mean - 3*Std')
+axs[2, 0].axvline(mean + 2 * std, color='green', linestyle='--', linewidth=1, label='Mean + 2*Std')
+axs[2, 0].axvline(mean - 2 * std, color='green', linestyle='--', linewidth=1, label='Mean - 2*Std')
+axs[2, 0].axvline(mean + 3 * std, color='purple', linestyle='--', linewidth=1, label='Mean + 3*Std')
+axs[2, 0].axvline(mean - 3 * std, color='purple', linestyle='--', linewidth=1, label='Mean - 3*Std')
 axs[2, 0].set_title('Bell Curve with Standard Deviation and Empirical Rules')
 axs[2, 0].set_xlabel('Speed')
 axs[2, 0].set_ylabel('Density')
@@ -192,7 +200,7 @@ axs[2, 0].legend()
 sns.histplot(speed_modified_zscore, kde=True, stat='density', linewidth=0, color='skyblue', ax=axs[2, 1])
 xmin, xmax = axs[2, 1].get_xlim()
 x = np.linspace(xmin, xmax, 100)
-pdf = st.norm.pdf(x, np.mean(speed_modified_zscore),np.std(speed_modified_zscore))
+pdf = st.norm.pdf(x, np.mean(speed_modified_zscore), np.std(speed_modified_zscore))
 axs[2, 1].plot(x, pdf, linewidth=2, color='red', label='Normal Distribution')
 axs[2, 1].set_title('Bell Curve After Outlier Removal')
 axs[2, 1].set_xlabel('Speed')

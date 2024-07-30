@@ -99,12 +99,16 @@ def remove_outliers_iqr(data):
     iqr = q75 - q25
     lower_bound = q25 - 1.5 * iqr
     upper_bound = q75 + 1.5 * iqr
+
+    print('Removed outliers using IQR')
     return [val for val in data if lower_bound <= val <= upper_bound]
 
 
 # Function to remove outliers using Z-score
 def remove_outliers_zscore(data, threshold=3):
     z_scores = np.abs(st.zscore(data))
+
+    print('Removed outliers using Z-score')
     return [val for key, val in enumerate(data) if z_scores[key] <= threshold]
 
 
@@ -113,8 +117,9 @@ def remove_outliers_modified_zscore(data, threshold=3.5):
     median = np.median(data)
     mad = np.median(np.abs(data - median))
     modified_z_scores = 0.6745 * (data - median) / mad
-    return [val for key, val in enumerate(data) if np.abs(modified_z_scores[key]) <= threshold]
 
+    print('Removed outliers using modified Z-score')
+    return [val for key, val in enumerate(data) if np.abs(modified_z_scores[key]) <= threshold]
 
 speed_iqr = remove_outliers_iqr(speed)
 speed_zscore = remove_outliers_zscore(speed)

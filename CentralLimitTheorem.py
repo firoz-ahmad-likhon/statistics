@@ -1,6 +1,6 @@
 ''' When data is continuous, sample_size >= 30 and population_std is known then
     Mean of all sample_mean = population_mean,
-    SE = population_std / sqrt(sample_size),
+    SE(std of all sample_std) = population_std / sqrt(sample_size),
     Sample_mean follows normal distribution
 
     When data is categorical, n * p >= 5 and n * (1 - p) >= 5 then

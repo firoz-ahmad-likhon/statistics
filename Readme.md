@@ -22,7 +22,17 @@
 - Kurtosis
 - Normality
 
+#### Probability Calculation from Normal Distribution
+- PDF
+- CDF
+- PPF
+
 ##### Measure of Association
 - Correlation   
 - Covariance
 - Regression
+
+##### Central Limit Theorem
+- Sampling Distribution
+
+Handle skewness and kurtosis

@@ -59,6 +59,12 @@ print("-----Start Shape-----")
 
 
 def shape_interpretation(skewness, kurtosis):
+    """
+    Interpret the distribution by skewness and kurtosis value.
+    :param skewness: skewness value
+    :param kurtosis: kurtosis value
+    :return: String interpretation
+    """
     # Interpret skewness
     if skewness == 0:
         skew_desc = "Symmetric distribution"
@@ -95,6 +101,11 @@ print("-----Start Outlier Detection-----")
 
 # Function to remove outliers using IQR
 def remove_outliers_iqr(data):
+    """
+    Remove the outlier using interquartile range method.
+    :param data: list of data
+    :return: list of data of removed outlier
+    """
     q25, q75 = np.percentile(data, [25, 75])
     iqr = q75 - q25
     lower_bound = q25 - 1.5 * iqr
@@ -106,6 +117,12 @@ def remove_outliers_iqr(data):
 
 # Function to remove outliers using Z-score
 def remove_outliers_zscore(data, threshold=3):
+    """
+    Remove the outlier using z-score method.
+    :param data: list of data
+    :param threshold: the threshold for identifying outlier
+    :return: list of data of removed outlier
+    """
     z_scores = np.abs(st.zscore(data))
 
     print('Removed outliers using Z-score')
@@ -114,6 +131,12 @@ def remove_outliers_zscore(data, threshold=3):
 
 # Function to remove outliers using modified Z-score
 def remove_outliers_modified_zscore(data, threshold=3.5):
+    """
+    Remove the outlier using modified z-score method.
+    :param data: list of data
+    :param threshold: the threshold for identifying outlier
+    :return: list of data of removed outlier
+    """
     median = np.median(data)
     mad = np.median(np.abs(data - median))
     modified_z_scores = 0.6745 * (data - median) / mad

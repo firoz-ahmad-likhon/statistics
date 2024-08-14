@@ -48,15 +48,15 @@ def z_distribution(mean, SE, cl, range_start, range_end):
     return MoE, CI, probability
 
 
-def t_distribution(mean, SE, cl, size, range_start, range_end):
+def t_distribution(mean, SE, cl, size, start, end):
     """
     Estimate using T Distribution.
     :param mean: Mean of the population or sample (float)
     :param SE: Standard Error (float)
     :param cl: Confidence level (float), e.g., 0.95 for 95% confidence
     :param size: Sample size (int)
-    :param range_start: Start of the range for probability calculation (float or None)
-    :param range_end: End of the range for probability calculation (float or None)
+    :param start: Start of the range for probability calculation (float or None)
+    :param end: End of the range for probability calculation (float or None)
     :return: Tuple containing:
         - Margin of Error (float)
         - Confidence Interval (tuple of two floats)
@@ -71,9 +71,9 @@ def t_distribution(mean, SE, cl, size, range_start, range_end):
     CI = (mean - MoE, mean + MoE)
 
     probability = None
-    if range_start is not None and range_end is not None:
-        z_start = (range_start - mean) / SE
-        z_end = (range_end - mean) / SE
+    if start is not None and end is not None:
+        z_start = (start - mean) / SE
+        z_end = (end - mean) / SE
         probability = dist.cdf(z_end) - dist.cdf(z_start)
 
     return MoE, CI, probability

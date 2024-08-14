@@ -76,11 +76,6 @@ def t_distribution(mean, SE, cl, size, range_start, range_end):
         z_end = (range_end - mean) / SE
         probability = dist.cdf(z_end) - dist.cdf(z_start)
 
-    # Calculate probability directly using the T distribution
-    probability_1 = dist.cdf(range_end) - dist.cdf(range_start)
-
-    print(probability, probability_1)
-
     return MoE, CI, probability
 
 

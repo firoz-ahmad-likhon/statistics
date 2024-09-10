@@ -4,8 +4,9 @@
     sampling distribution follows normal distribution
 
     When data is categorical, sample_size * population_proportion >= 10 and sample_size * (1 - population_proportion) >= 10 then
-    standard_error (std of sampling distribution of p) = sqrt(population_proportion * (1 - population_proportion) / sample_size)
-    sampling distribution of proportion follows normal distribution
+    mean_of_sampling_distribution_of_p̂ = population_proportion,
+    standard_error (std of sampling distribution of p̂) = sqrt(population_proportion * (1 - population_proportion) / sample_size)
+    sampling distribution of sample proportion follows normal distribution
 '''
 import numpy as np
 import matplotlib.pyplot as plt

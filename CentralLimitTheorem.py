@@ -1,12 +1,11 @@
 ''' When data is continuous, sample_size >= 30 and population_std is known then
-    Mean of all sample_mean = population_mean,
-    SE(std of all sample_std) = population_std / sqrt(sample_size),
-    Sample_mean follows normal distribution
+    mean_of_sampling_distribution = population_mean,
+    standard_error(std of sampling distribution) = population_std / sqrt(sample_size),
+    sampling distribution follows normal distribution
 
-    When data is categorical, n * p >= 5 and n * (1 - p) >= 5 then
-    SE = sqrt(p * (1 - p) / n)
-    ME = z * SE
-    Sample proportion follows normal distribution
+    When data is categorical, sample_size * population_proportion >= 10 and sample_size * (1 - population_proportion) >= 10 then
+    standard_error (std of sampling distribution of p) = sqrt(population_proportion * (1 - population_proportion) / sample_size)
+    sampling distribution of proportion follows normal distribution
 '''
 import numpy as np
 import matplotlib.pyplot as plt
@@ -69,7 +68,7 @@ plt.legend([f'Mean: {population_mean_actual:.2f}\nStd Dev: {population_std_actua
 # Plot the sampling distribution of the sample mean
 plt.subplot(1, 2, 2)
 plt.hist(sample_means, bins=30, density=True, alpha=0.6, color='lightgreen', edgecolor='black')
-plt.title('Sampling Distribution of the Sample Mean')
+plt.title('Sampling Distribution')
 plt.xlabel('Sample Mean')
 plt.ylabel('Density')
 

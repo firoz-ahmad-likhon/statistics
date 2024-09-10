@@ -10,7 +10,7 @@ y = np.array([2, 3, 5, 7, 11])
 # Perform linear regression
 slope, intercept, r_value, p_value, std_err = linregress(x, y)
 
-# Calculate R-squared
+# Calculate Coefficient of determination(R^2)
 r_squared = r_value ** 2
 
 # Predict y values
@@ -19,11 +19,8 @@ y_pred = slope * x + intercept
 # Calculate residuals (squared errors)
 residuals = y - y_pred
 
-# Mean squared error
-mse = np.mean(residuals ** 2)
-
-# Root mean squared error
-rmse = np.sqrt(mse)
+mean_squared_error = np.mean(residuals ** 2)
+root_mean_squared_error = np.sqrt(mean_squared_error)
 
 # Plot using seaborn
 plt.figure(figsize=(8, 6))
@@ -39,8 +36,8 @@ for i in range(len(x)):
 plt.text(2, 10, f'y = {slope:.2f}x {"+" if intercept >= 0 else "-"} {abs(intercept):.2f}', fontsize=12, color='black', ha='left')
 plt.text(2, 9.5, f'R (Correlation coefficient): {r_value:.2f}', fontsize=12, color='black', ha='left')
 plt.text(2, 9, f'R^2 (Coefficient of determination): {r_squared:.2f}', fontsize=12, color='black', ha='left')
-plt.text(2, 8.5, f'Mean Squared Error: {mse:.2f}', fontsize=12, color='black', ha='left')
-plt.text(2, 8, f'Root Mean Squared Error: {rmse:.2f}', fontsize=12, color='black', ha='left')
+plt.text(2, 8.5, f'Mean Squared Error: {mean_squared_error:.2f}', fontsize=12, color='black', ha='left')
+plt.text(2, 8, f'Root Mean Squared Error: {root_mean_squared_error:.2f}', fontsize=12, color='black', ha='left')
 
 plt.xlabel('X')
 plt.ylabel('Y')

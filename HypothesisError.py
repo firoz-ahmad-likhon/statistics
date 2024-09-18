@@ -2,81 +2,18 @@ import numpy as np
 from scipy import stats
 
 '''
+P(Reject H₀ | H₀ is true) = α
+P(Fail to reject H₀ | H₁ is true) = β
+P(Reject H₀ | H₁ is true) = 1 - β
+
+P(Reject the claim that the battery lasts 500 hours ∣ the battery does last 500 hours) = α
+P(Fail to reject the claim that the battery lasts 500 hours ∣ the battery does not last 500 hours) = β
+P(Reject the claim that the battery lasts 500 hours ∣ the battery does not last 500 hours) = 1 - β
+
 In practice, you want the power to be at least 0.80, meaning there’s an 80% chance of correctly rejecting a false null hypothesis. If the power is too low, you may want to:
 1. Increase the sample size.
 2. Increase the significance level (though this increases the risk of a Type I error).
 3. Reduce variability (if possible).
-
-Here’s a detailed example illustrating Type I error, Type II error, and the power of the test in the context of hypothesis testing:
-Scenario: Testing a New Medication
-
-A pharmaceutical company is developing a new medication that they claim lowers blood pressure by at least 10 mmHg on average. A clinical trial is conducted, and the company wants to test this claim.
-Hypotheses:
-
-    Null Hypothesis (H₀): The new medication lowers blood pressure by less than or equal to 10 mmHg on average (i.e., no significant improvement).
-    Alternative Hypothesis (H₁): The new medication lowers blood pressure by more than 10 mmHg on average (i.e., significant improvement).
-
-This is a right-tailed test, since we're testing whether the new medication leads to a greater effect than the baseline (10 mmHg).
-Errors and Power in Hypothesis Testing:
-1. Type I Error (False Positive):
-
-    Definition: Rejecting the null hypothesis (H₀) when it is actually true.
-
-    In this context: The trial results suggest that the new medication lowers blood pressure by more than 10 mmHg (i.e., reject H₀), but in reality, it does not. The company concludes the medication is effective when it is not.
-
-    Significance Level (α): The probability of making a Type I error. If the significance level is set to 5% (α = 0.05), there is a 5% chance of incorrectly rejecting the null hypothesis and falsely concluding that the medication works.
-
-    Example: Suppose the medication actually only lowers blood pressure by 9 mmHg on average, but due to random variation in the trial, the sample shows a mean decrease of 11 mmHg. This leads to incorrectly rejecting H₀ and concluding that the medication works, even though it does not.
-
-2. Type II Error (False Negative):
-
-    Definition: Failing to reject the null hypothesis (H₀) when it is false.
-
-    In this context: The trial results suggest that the new medication does not lower blood pressure by more than 10 mmHg (i.e., fail to reject H₀), but in reality, it does. The company concludes that the medication is ineffective when it actually works.
-
-    Probability (β): The probability of making a Type II error depends on the sample size, effect size, and standard deviation.
-
-    Example: Suppose the medication actually lowers blood pressure by 12 mmHg, but the trial shows only a 9.8 mmHg decrease due to random variability. As a result, the company fails to reject H₀, missing out on a beneficial treatment.
-
-3. Power of the Test (1 - β):
-
-    Definition: The probability of correctly rejecting the null hypothesis (H₀) when it is false.
-    In this context: The test correctly identifies that the new medication lowers blood pressure by more than 10 mmHg on average.
-    Power depends on several factors:
-        Sample size: Larger sample sizes increase the power of the test.
-        Effect size: The larger the true effect (difference from 10 mmHg), the more likely the test will detect it.
-        Significance level (α): A lower significance level reduces the Type I error but may also reduce power.
-    Example: The actual effect of the medication is 12 mmHg, and the trial shows a decrease of 11.5 mmHg. The test correctly rejects H₀, concluding that the medication is effective.
-
-Visualization of Errors and Power:
-
-    Type I Error (α): The area in the right tail of the distribution under H₀ beyond the critical value, where we would reject H₀. This is the false positive region.
-    Type II Error (β): The area under the distribution of H₁ that overlaps with the distribution of H₀, representing cases where we fail to reject H₀ even though H₁ is true.
-    Power (1 - β): The area under the H₁ distribution beyond the critical value, where we correctly reject H₀.
-
-Example Using Numbers:
-
-Let’s say:
-
-    The null hypothesis mean (H₀) is 10 mmHg.
-    The alternative hypothesis mean (H₁) is 12 mmHg.
-    The standard deviation is 1.5 mmHg.
-    The sample size is 25.
-    The significance level (α) is 0.05.
-
-We calculate the Z-scores, critical values, and use these to determine the Type I error (α), Type II error (β), and power of the test.
-
-In this case:
-
-    Type I Error: The probability of rejecting H₀ when the medication doesn’t work (false positive).
-    Type II Error: The probability of not rejecting H₀ when the medication actually works (false negative).
-    Power: The probability of correctly detecting that the medication works.
-
-Conclusion:
-
-    Type I error: Rejects a true null hypothesis, leading to a false claim that the medication is effective.
-    Type II error: Fails to reject a false null hypothesis, missing out on a treatment that actually works.
-    Power: The ability of the test to detect the true effect when the medication is effective.
 '''
 
 def calculate_errors_power(mean_null, mean_alt, std, n, alpha=0.05, tails="two"):

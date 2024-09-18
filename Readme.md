@@ -35,4 +35,13 @@
 ##### Central Limit Theorem
 - Sampling Distribution
 
+##### Inferential Statistics
+- Point Estimation
+- Confidence Interval
+- Hypothesis Testing
+- P-Value
+- Type I and Type II Errors
+- Power of Test
+
+
 Handle skewness and kurtosis
